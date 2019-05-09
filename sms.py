@@ -70,9 +70,20 @@ sentence = "Dr Sulaiman Adeeyo is prolific software developer. He has been in th
            "years. He has led a team of 22 developers and has worked in various enterprise positions. "
 
 
-def text_limiter(sentence):
-    return [element for element in sentence.split() if element in sentence[:160].split()]
+def text_limiter(sentence, limit):
+    if len(sentence) == 0:
+        return messages
+    if len(max(sentence.split(), key=len)) > limit:
+        return messages
+    text = sentence.split()[0]
+    for i in range(1, len(sentence.split())):
+        if len(text + ' ' + sentence.split()[i]) < limit:
+            text = text + ' ' + sentence.split()[i]
+        else:
+            messages.append(text)
+            text = sentence.split()[i]
+    messages.append(text)
+    return messages
 
 
-filtered_message = " ".join(text_limiter(sentence))
-print(filtered_message)
+print(text_limiter(sentence, 160))
