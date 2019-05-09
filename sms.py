@@ -55,41 +55,27 @@
 
 # Here's the message.
 # ------------------------
-import textwrap
-from difflib import SequenceMatcher
-
-sentence = "Dr Sulaiman Adeeyo is prolific software developer. He has been in the software game for the past four years. He has " \
-           "led a team of 22 developers and has worked in various enterprise positions. "
 
 
-def text_list(str):
-    words = str.split()
+# Context
+# An SMS has a length limit of 160 characters. Write a function,
+# that given a message, returns the various text messages that
+# would be sent. Constraint: you should not split on a word.
 
-    return words
+# Here's the message.
+# ------------------------
 
-
-def SMS(sentence, _maximum):
-    return sentence[:_maximum]
-
-
-def common_start(sa, sb):
-
-    def iter():
-        for a, b in zip(sa, sb):
-            if a == b:
-                yield a
-            else:
-                return
-
-    return ''.join(iter())
+messages = []
+sentence = "Dr Sulaiman Adeeyo is prolific software developer. He has been in the software game for the past four " \
+           "years. He has led a team of 22 developers and has worked in various enterprise positions. "
 
 
-def common_elements(list1, list2):
+def text_limiter(list1, list2):
     return [element for element in list1 if element in list2]
 
 
-processed_text = text_list(sentence)
-wanted_message = SMS(sentence, _maximum=160).split()
+processed_text = words = sentence.split()
+wanted_message = sentence[:160].split()
 
-print(" ".join(common_elements(processed_text, wanted_message)))
-
+filtered_message = " ".join(text_limiter(processed_text, wanted_message))
+print(filtered_message)
